@@ -370,6 +370,12 @@ export default class Classify extends Component {
               <div key={key}>
                 <b>{medicine.name}</b>
                 <p>{medicine.information}</p>
+                <p className="medicine-dose">
+                  <span>
+                    <b>Dose: </b>
+                  </span>
+                  {medicine.dose}
+                </p>
               </div>
             ))}
           </Modal.Body>

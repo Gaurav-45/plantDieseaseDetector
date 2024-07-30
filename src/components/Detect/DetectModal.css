@@ -3,6 +3,11 @@
 }
 
 .label {
-    font-size: small;
+    font-size: large;
     color: green;
+    font-weight: bold;
+}
+
+.medicine-dose {
+    color: darkblue;
 }
