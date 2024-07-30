@@ -5,6 +5,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import AlertDismissable from "./components/AlertDismissable";
 import Routes from "./Routes";
 import "./App.css";
+import TopNavbar from "./components/TopNavbar/TopNavbar";
 
 class App extends Component {
   constructor(props) {
@@ -28,8 +29,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Container>
-          <Navbar
+        {/* <Container> */}
+        {/* <Navbar
             collapseOnSelect
             className="app-nav-bar"
             variant="dark"
@@ -53,22 +54,23 @@ class App extends Component {
                 </Link>
               </Nav>
             </Navbar.Collapse>
-          </Navbar>
-          {this.props.updateAvailable && this.state.showUpdateAlert && (
-            <div style={{ paddingTop: "10px" }}>
-              <AlertDismissable
-                title=""
-                variant="info"
-                message={this.state.reloadMsg}
-                show={this.props.updateAvailable && this.state.showUpdateAlert}
-                onClose={this.dismissUpdateAlert}
-              />
-            </div>
-          )}
-        </Container>
-        <Container>
-          <Routes />
-        </Container>
+          </Navbar> */}
+        <TopNavbar />
+        {this.props.updateAvailable && this.state.showUpdateAlert && (
+          <div style={{ paddingTop: "10px" }}>
+            <AlertDismissable
+              title=""
+              variant="info"
+              message={this.state.reloadMsg}
+              show={this.props.updateAvailable && this.state.showUpdateAlert}
+              onClose={this.dismissUpdateAlert}
+            />
+          </div>
+        )}
+        {/* </Container> */}
+        {/* <Container> */}
+        <Routes />
+        {/* </Container> */}
       </div>
     );
   }

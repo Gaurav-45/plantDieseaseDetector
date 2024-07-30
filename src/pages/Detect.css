@@ -1,10 +1,12 @@
 #no-webcam {
-  color: aquamarine;
+  color: var(--white);
 }
 .Classify {
   margin-top: 20px;
-  background-color: #35568a;
-  border-radius: 5%;
+  background-color: var(--primary);
+  border-radius: 24px;
+  width: 90%;
+  padding: 24px !important;
 }
 
 .Classify .imagefile {
@@ -22,7 +24,7 @@
   font-weight: 500;
   height: 34px;
   padding: 6px 12px;
-  background-color: #323464;
+  background-color: var(--darkPrimary);
   display: inline-block;
   cursor: pointer;
   border: 1px solid #ccc;
@@ -74,24 +76,24 @@
 .Classify .classify-panel-header {
   margin-top: 10px;
   width: 100%;
-  color: aqua;
+  color: var(--white);
   border-color: rgba(0, 0, 0, 0.125);
-  background-color: #323464;
+  background-color: var(--darkPrimary);
 }
 
 .Classify .classify-panel-header:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  color: aqua;
+  color: var(--white);
 }
 
 .Classify .classify-panel-header:active {
   background-color: #585858 !important;
-  color: #323464 !important;
+  color: var(--darkPrimary) !important;
 }
 
 .Classify #photo-selection-pane {
   padding: 12px;
-  background: #35568a;
+  background: var(--primary);
   padding-top: 12px;
   padding-bottom: 12px;
 }
@@ -109,15 +111,15 @@
   font-weight: 600;
 }
 video {
-  width: 110%    !important;
-  height: 280px   !important;
+  width: 110% !important;
+  height: 280px !important;
 }
 .tabs {
-  color: aqua;
+  color: var(--white);
 }
 
 .Classify .LoadButton {
-  background-color: #323464;
+  background-color: var(--darkPrimary);
 }
 
 .classification-results h1 {
@@ -141,22 +143,22 @@ video {
 }
 
 .nav:active {
-  background-color: #323464;
+  background-color: var(--darkPrimary);
   color: white;
 }
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  background-color: #323464;
+  background-color: var(--darkPrimary);
   color: white;
 }
 
 label {
-  color: aqua;
+  color: var(--white);
 }
 
 .list-group-item {
-  background-color: #08162a;
+  background-color: var(--darkPrimary);
   color: white;
   border: white;
   border-bottom-width: 10px;

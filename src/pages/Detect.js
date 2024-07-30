@@ -23,7 +23,7 @@ import "cropperjs/dist/cropper.css";
 const MODEL_PATH = "/model/model.json";
 const IMAGE_SIZE = 224;
 const CANVAS_SIZE = 224;
-const TOPK_PREDICTIONS = 5;
+const TOPK_PREDICTIONS = 1;
 
 const INDEXEDDB_DB = "tensorflowjs";
 const INDEXEDDB_STORE = "tree_model_info_store";
