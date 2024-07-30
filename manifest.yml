@@ -1,0 +1,8 @@
+---
+applications:
+ - name: DisDetector
+   memory: 512M
+   disk_quota: 2048M
+   routes:
+   - route: disdetector.herokuapp.com
+   command: npm run start-prod

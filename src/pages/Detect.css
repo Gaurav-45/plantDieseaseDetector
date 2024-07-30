@@ -1,0 +1,168 @@
+#no-webcam {
+  color: aquamarine;
+}
+.Classify {
+  margin-top: 20px;
+  background-color: #35568a;
+  border-radius: 5%;
+}
+
+.Classify .imagefile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.Classify .imagelabel {
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+  height: 34px;
+  padding: 6px 12px;
+  background-color: #323464;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 0px;
+  padding-bottom: 5%;
+}
+
+.Classify .tab-pane {
+  padding-top: 40px;
+}
+
+.Classify #no-webcam {
+  display: none;
+  text-align: center;
+  font-size: 22px;
+  padding: 10px;
+  line-height: 30px;
+}
+.Classify #no-webcam .camera-icon {
+  font-size: 40px;
+  display: block;
+  padding-bottom: 24px;
+  color: white;
+}
+
+.Classify .webcam-box-outer {
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.Classify .webcam-box-inner {
+  border: 1px solid #585858;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-color: cyan;
+}
+
+.Classify #webcam {
+  height: 280px;
+}
+
+.Classify .button-container {
+  margin-top: 18px;
+}
+
+.Classify .classify-panel-header {
+  margin-top: 10px;
+  width: 100%;
+  color: aqua;
+  border-color: rgba(0, 0, 0, 0.125);
+  background-color: #323464;
+}
+
+.Classify .classify-panel-header:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: aqua;
+}
+
+.Classify .classify-panel-header:active {
+  background-color: #585858 !important;
+  color: #323464 !important;
+}
+
+.Classify #photo-selection-pane {
+  padding: 12px;
+  background: #35568a;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.Classify .panel-arrow {
+  float: right;
+}
+
+.Classify .classification-results {
+  margin-top: 18px;
+}
+
+.Classify .loading-model-text {
+  padding-left: 12px;
+  font-size: 36px;
+  font-weight: 600;
+}
+video {
+  width: 110%    !important;
+  height: 280px   !important;
+}
+.tabs {
+  color: aqua;
+}
+
+.Classify .LoadButton {
+  background-color: #323464;
+}
+
+.classification-results h1 {
+  color: white;
+}
+
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  border: 0px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.nav {
+  display: -webkit-inline-box;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  border-bottom: none;
+  border-radius: 2%;
+}
+
+.nav:active {
+  background-color: #323464;
+  color: white;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  background-color: #323464;
+  color: white;
+}
+
+label {
+  color: aqua;
+}
+
+.list-group-item {
+  background-color: #08162a;
+  color: white;
+  border: white;
+  border-bottom-width: 10px;
+  margin-bottom: 10px;
+}
+
+.canvas {
+  margin-bottom: 20px;
+}
