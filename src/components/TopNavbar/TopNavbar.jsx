@@ -18,7 +18,7 @@ const TopNavbar = () => {
           </Link>
         </div>
         <div className={`topnav_ele menu ${isOpen ? "open" : ""}`}>
-          <Link to="/yeildpredictor">
+          <Link to="/yieldpredictor">
             <p className="topnav_menu_item">Yeild predictor</p>
           </Link>
           <Link to="/detect">
@@ -38,7 +38,7 @@ const TopNavbar = () => {
       </div>
       {isOpen && (
         <div className="dropdown_menu">
-          <Link to="/yeildpredictor" onClick={toggleMenu}>
+          <Link to="/yieldpredictor" onClick={toggleMenu}>
             <p className="topnav_menu_item">Yeild predictor</p>
           </Link>
           <Link to="/detect" onClick={toggleMenu}>

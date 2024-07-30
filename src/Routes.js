@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
 import Database from "./pages/Database";
 import Home from "./pages/Home";
+import YPredictor from "./components/YieldPrediction/YPredictor";
 
 const routing = ({ childProps }) => (
   <Switch>
@@ -14,6 +15,12 @@ const routing = ({ childProps }) => (
     <Route path="/about" exact component={About} props={childProps} />
     <Route path="/contact" exact component={Contact} props={childProps} />
     <Route path="/database" exact component={Database} props={childProps} />
+    <Route
+      path="/yieldpredictor"
+      exact
+      component={YPredictor}
+      props={childProps}
+    />
     <Route component={NotFound} />
   </Switch>
 );
