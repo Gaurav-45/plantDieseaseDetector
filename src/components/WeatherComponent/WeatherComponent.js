@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./WeatherComponent.css";
 import WeatherPrediction from "./WeatherPrediction";
+import { Button, Modal } from "react-bootstrap";
 
 const WeatherComponent = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [prediction, setPrediction] = useState(null);
+  const [showInfo, setShowInfo] = useState(false);
   const API_KEY = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
   const CITY = "Pune";
 
@@ -58,6 +60,43 @@ const WeatherComponent = () => {
         {prediction &&
           prediction.list.map((pred, key) => <WeatherPrediction data={pred} />)}
       </div>
+      <button
+        className="top_nav_button alert_button"
+        onClick={() => setShowInfo(!showInfo)}
+      >
+        Send demo alert
+      </button>
+      <Modal
+        show={showInfo}
+        onHide={() => setShowInfo(false)}
+        dialogClassName="custom-modal"
+        aria-labelledby="example-custom-modal-styling-title"
+        // style={{ textAlign: "center" }}
+      >
+        <Modal.Header>
+          <Modal.Title
+            style={{ color: "red" }}
+            id="example-custom-modal-styling-title alert_heading"
+          >
+            Alert
+          </Modal.Title>
+          <Button
+            className="custom-close-button"
+            onClick={() => setShowInfo(false)}
+          >
+            x
+          </Button>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <p>Dear Farmer,</p>
+            <p>
+              There is a possibility of heavy rain in the next 2 hours. Please
+              take necessary actions.
+            </p>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

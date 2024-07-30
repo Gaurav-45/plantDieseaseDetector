@@ -1,0 +1,25 @@
+.offline_component {
+  margin-top: 20px;
+}
+
+.centered_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.offline_component {
+  text-decoration: none;
+}
+
+.offline_component a {
+  color: white;
+}
+
+.offline_component a:hover {
+  color: var(--primary);
+}
+
+.offline_component:hover {
+  color: var(--primary);
+}
