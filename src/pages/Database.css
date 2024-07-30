@@ -5,9 +5,9 @@
 }
 
 h3 {
-  color: aqua;
+  color: var(--primary);
 }
 
 p1 {
-  color: aqua;
+  color: var(--primary);
 }

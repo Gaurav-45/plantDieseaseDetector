@@ -1,20 +1,20 @@
 .App {
   margin-top: 15px;
   text-align: center;
-  background-color: #08162a;
+  background-color: #fff;
 }
 
 .App .navbar-brand {
   font-weight: bold;
-  color: aqua;
+  color: var(--primary);
 }
 
 .app-nav-bar {
-  background-color: #08162a;
+  background-color: #fff;
 }
 
 .nav-link {
-  color: aqua;
+  color: var(--white);
 }
 
 .App .container {
