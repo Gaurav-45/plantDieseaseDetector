@@ -5,10 +5,12 @@ import Detect from "./pages/Detect";
 import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
 import Database from "./pages/Database";
+import Home from "./pages/Home";
 
 const routing = ({ childProps }) => (
   <Switch>
-    <Route path="/" exact component={Detect} props={childProps} />
+    <Route path="/" exact component={Home} props={childProps} />
+    <Route path="/detect" exact component={Detect} props={childProps} />
     <Route path="/about" exact component={About} props={childProps} />
     <Route path="/contact" exact component={Contact} props={childProps} />
     <Route path="/database" exact component={Database} props={childProps} />

@@ -13,16 +13,18 @@ const TopNavbar = () => {
     <div className="topnav_container">
       <div className="topnav_main_element">
         <div className="topnav_ele logo">
-          <h3>KrishiBhandu</h3>
+          <Link to="/">
+            <h3>कृषिबंधु</h3>
+          </Link>
         </div>
         <div className={`topnav_ele menu ${isOpen ? "open" : ""}`}>
-          <Link to="/title1">
+          <Link to="/yeildpredictor">
             <p className="topnav_menu_item">Yeild predictor</p>
           </Link>
-          <Link to="/disdetector">
+          <Link to="/detect">
             <p className="topnav_menu_item">Disease detector</p>
           </Link>
-          <Link to="/title3">
+          <Link to="/pricepredictor">
             <p className="topnav_menu_item">Price predictor</p>
           </Link>
         </div>
@@ -36,13 +38,13 @@ const TopNavbar = () => {
       </div>
       {isOpen && (
         <div className="dropdown_menu">
-          <Link to="/title1" onClick={toggleMenu}>
+          <Link to="/yeildpredictor" onClick={toggleMenu}>
             <p className="topnav_menu_item">Yeild predictor</p>
           </Link>
-          <Link to="/disdetector" onClick={toggleMenu}>
+          <Link to="/detect" onClick={toggleMenu}>
             <p className="topnav_menu_item">Disease detector</p>
           </Link>
-          <Link to="/title3" onClick={toggleMenu}>
+          <Link to="/pricepredictor" onClick={toggleMenu}>
             <p className="topnav_menu_item">Price predictor</p>
           </Link>
           <div className="topnav_collapse_button">
