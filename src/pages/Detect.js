@@ -10,6 +10,7 @@ import {
   Tabs,
   Tab,
 } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 import { FaCamera, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import Cropper from "react-cropper";
 import * as tf from "@tensorflow/tfjs";
@@ -19,6 +20,8 @@ import { openDB } from "idb";
 import config from "../config";
 import "./Detect.css";
 import "cropperjs/dist/cropper.css";
+import axios from "axios";
+import "../../src/components/Detect/DetectModal.css";
 
 const MODEL_PATH = "/model/model.json";
 const IMAGE_SIZE = 224;
@@ -47,6 +50,8 @@ export default class Classify extends Component {
       showModelUpdateAlert: false,
       showModelUpdateSuccess: false,
       isDownloadingModel: false,
+      diseaseMoreInfo: {},
+      showModal: false,
     };
   }
 
@@ -166,6 +171,41 @@ export default class Classify extends Component {
       showModelUpdateAlert: false,
       showModelUpdateSuccess: true,
     });
+  };
+
+  handleGetMoreInfo = async () => {
+    console.log(this.state.predictions[0].className);
+    let res = await axios.post(
+      "http://127.0.0.1:5000/getCropDiseaseInformation",
+      {
+        disease: this.state.predictions[0].className,
+      }
+    );
+
+    this.setState(
+      {
+        diseaseMoreInfo: {
+          diseaseName: res.data.metaData.disease,
+          causes: res.data.result.causes,
+          information: res.data.result.information,
+          treatment: res.data.result.treatment,
+          medicines: res.data.result.medicine,
+        },
+        showModal: true,
+      },
+      () => {
+        console.log("yeyyy!");
+        console.log(this.state.diseaseMoreInfo);
+      }
+    );
+  };
+
+  handleShow = () => {
+    this.setState({ showModal: true });
+  };
+
+  handleClose = () => {
+    this.setState({ showModal: false });
   };
 
   classifyLocalImage = async () => {
@@ -304,193 +344,236 @@ export default class Classify extends Component {
 
   render() {
     return (
-      <div className="Classify container">
-        {!this.state.modelLoaded && (
-          <Fragment>
-            <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
-            </Spinner>{" "}
-            <span className="loading-model-text">Downloading Model</span>
-          </Fragment>
-        )}
+      <>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+          dialogClassName="custom-modal"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title">
+              Disease Diagnosis
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p className="label">Disease Name</p>
+            <p>{this.state.diseaseMoreInfo.diseaseName}</p>
+            <p className="label">Disease Cause</p>
+            <p>{this.state.diseaseMoreInfo.causes}</p>
+            <p className="label">Disease Information</p>
+            <p>{this.state.diseaseMoreInfo.information}</p>
+            <p className="label">Disease Treatment</p>
+            <p>{this.state.diseaseMoreInfo.treatment}</p>
+            <p className="label">Medicines</p>
+            {this.state.diseaseMoreInfo?.medicines?.map((medicine, key) => (
+              <div key={key}>
+                <b>{medicine.name}</b>
+                <p>{medicine.information}</p>
+              </div>
+            ))}
+          </Modal.Body>
+        </Modal>
+        <div className="Classify container">
+          {!this.state.modelLoaded && (
+            <Fragment>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>{" "}
+              <span className="loading-model-text">Downloading Model</span>
+            </Fragment>
+          )}
 
-        {this.state.modelLoaded && (
-          <Fragment>
-            <Button
-              onClick={this.handlePanelClick}
-              className="classify-panel-header"
-              aria-controls="photo-selection-pane"
-              aria-expanded={this.state.photoSettingsOpen}
-            >
-              Take or Select a Photo to Detect
-              <span className="panel-arrow">
-                {this.state.photoSettingsOpen ? (
-                  <FaChevronDown />
-                ) : (
-                  <FaChevronRight />
-                )}
-              </span>
-            </Button>
-            <Collapse in={this.state.photoSettingsOpen}>
-              <div id="photo-selection-pane">
-                {this.state.modelUpdateAvailable &&
-                  this.state.showModelUpdateAlert && (
+          {this.state.modelLoaded && (
+            <Fragment>
+              <Button
+                onClick={this.handlePanelClick}
+                className="classify-panel-header"
+                aria-controls="photo-selection-pane"
+                aria-expanded={this.state.photoSettingsOpen}
+              >
+                Take or Select a Photo to Detect
+                <span className="panel-arrow">
+                  {this.state.photoSettingsOpen ? (
+                    <FaChevronDown />
+                  ) : (
+                    <FaChevronRight />
+                  )}
+                </span>
+              </Button>
+              <Collapse in={this.state.photoSettingsOpen}>
+                <div id="photo-selection-pane">
+                  {this.state.modelUpdateAvailable &&
+                    this.state.showModelUpdateAlert && (
+                      <Container>
+                        <Alert
+                          variant="info"
+                          show={
+                            this.state.modelUpdateAvailable &&
+                            this.state.showModelUpdateAlert
+                          }
+                          onClose={() =>
+                            this.setState({ showModelUpdateAlert: false })
+                          }
+                          dismissible
+                        >
+                          An update for the{" "}
+                          <strong>{this.state.modelType}</strong> model is
+                          available.
+                          <div className="d-flex justify-content-center pt-1">
+                            {!this.state.isDownloadingModel && (
+                              <Button
+                                onClick={this.updateModel}
+                                variant="outline-info"
+                              >
+                                Update
+                              </Button>
+                            )}
+                            {this.state.isDownloadingModel && (
+                              <div>
+                                <Spinner
+                                  animation="border"
+                                  role="status"
+                                  size="sm"
+                                >
+                                  <span className="sr-only">
+                                    Downloading...
+                                  </span>
+                                </Spinner>{" "}
+                                <strong>Downloading...</strong>
+                              </div>
+                            )}
+                          </div>
+                        </Alert>
+                      </Container>
+                    )}
+                  {this.state.showModelUpdateSuccess && (
                     <Container>
                       <Alert
-                        variant="info"
-                        show={
-                          this.state.modelUpdateAvailable &&
-                          this.state.showModelUpdateAlert
-                        }
+                        variant="success"
                         onClose={() =>
-                          this.setState({ showModelUpdateAlert: false })
+                          this.setState({ showModelUpdateSuccess: false })
                         }
                         dismissible
                       >
-                        An update for the{" "}
-                        <strong>{this.state.modelType}</strong> model is
-                        available.
-                        <div className="d-flex justify-content-center pt-1">
-                          {!this.state.isDownloadingModel && (
-                            <Button
-                              onClick={this.updateModel}
-                              variant="outline-info"
-                            >
-                              Update
-                            </Button>
-                          )}
-                          {this.state.isDownloadingModel && (
-                            <div>
-                              <Spinner
-                                animation="border"
-                                role="status"
-                                size="sm"
-                              >
-                                <span className="sr-only">Downloading...</span>
-                              </Spinner>{" "}
-                              <strong>Downloading...</strong>
-                            </div>
-                          )}
-                        </div>
+                        The <strong>{this.state.modelType}</strong> model has
+                        been updated!
                       </Alert>
                     </Container>
                   )}
-                {this.state.showModelUpdateSuccess && (
-                  <Container>
-                    <Alert
-                      variant="success"
-                      onClose={() =>
-                        this.setState({ showModelUpdateSuccess: false })
-                      }
-                      dismissible
-                    >
-                      The <strong>{this.state.modelType}</strong> model has been
-                      updated!
-                    </Alert>
-                  </Container>
-                )}
-                <Tabs
-                  defaultActiveKey="camera"
-                  id="input-options"
-                  onSelect={this.handleTabSelect}
-                  className="justify-content-center"
-                >
-                  <Tab eventKey="camera" title="Take Photo" className="tabs">
-                    <div id="no-webcam" ref="noWebcam">
-                      <span className="camera-icon">
-                        <FaCamera />
-                      </span>
-                      No camera found. <br />
-                      Please use a device with a camera, or upload an image
-                      instead.
-                    </div>
-                    <div className="webcam-box-outer">
-                      <div className="webcam-box-inner">
-                        <video
-                          ref="webcam"
-                          autoPlay
-                          playsInline
-                          muted
-                          id="webcam"
-                        ></video>
+                  <Tabs
+                    defaultActiveKey="camera"
+                    id="input-options"
+                    onSelect={this.handleTabSelect}
+                    className="justify-content-center"
+                  >
+                    <Tab eventKey="camera" title="Take Photo" className="tabs">
+                      <div id="no-webcam" ref="noWebcam">
+                        <span className="camera-icon">
+                          <FaCamera />
+                        </span>
+                        No camera found. <br />
+                        Please use a device with a camera, or upload an image
+                        instead.
                       </div>
-                    </div>
-                    <div className="button-container">
-                      <LoadButton
-                        variant="primary"
-                        size="lg"
-                        onClick={this.classifyWebcamImage}
-                        isLoading={this.state.isClassifying}
-                        text="Detect"
-                        loadingText="Detecting the Disease.."
-                      />
-                    </div>
-                  </Tab>
-                  <Tab eventKey="localfile" title="Select Local File">
-                    <Form.Group controlId="file">
-                      <Form.Label>Select Image File</Form.Label>
-                      <br />
-                      <Form.Label className="imagelabel">
-                        {this.state.filename
-                          ? this.state.filename
-                          : "Browse..."}
-                      </Form.Label>
-                      <Form.Control
-                        onChange={this.handleFileChange}
-                        type="file"
-                        accept="image/*"
-                        className="imagefile"
-                      />
-                    </Form.Group>
-                    {this.state.file && (
-                      <Fragment>
-                        <div id="local-image">
-                          <Cropper
-                            ref="cropper"
-                            src={this.state.file}
-                            style={{ height: 400, width: "100%" }}
-                            guides={true}
-                            aspectRatio={1 / 1}
-                            viewMode={2}
-                          />
+                      <div className="webcam-box-outer">
+                        <div className="webcam-box-inner">
+                          <video
+                            ref="webcam"
+                            autoPlay
+                            playsInline
+                            muted
+                            id="webcam"
+                          ></video>
                         </div>
-                        <div className="button-container">
-                          <LoadButton
-                            variant="primary"
-                            size="lg"
-                            disabled={!this.state.filename}
-                            onClick={this.classifyLocalImage}
-                            isLoading={this.state.isClassifying}
-                            text="Detect"
-                            loadingText="Detecting the Disease.."
-                          />
-                        </div>
-                      </Fragment>
-                    )}
-                  </Tab>
-                </Tabs>
-              </div>
-            </Collapse>
-            {this.state.predictions.length > 0 && (
-              <div className="classification-results">
-                <h3>Predictions</h3>
-                <canvas ref="canvas" width={CANVAS_SIZE} height={CANVAS_SIZE} />
-                <br />
-                <ListGroup>
-                  {this.state.predictions.map((category) => {
-                    return (
-                      <ListGroup.Item key={category.className}>
-                        <strong>{category.className}</strong>{" "}
-                        {category.probability}%
-                      </ListGroup.Item>
-                    );
-                  })}
-                </ListGroup>
-              </div>
-            )}
-          </Fragment>
-        )}
-      </div>
+                      </div>
+                      <div className="button-container">
+                        <LoadButton
+                          variant="primary"
+                          size="lg"
+                          onClick={this.classifyWebcamImage}
+                          isLoading={this.state.isClassifying}
+                          text="Detect"
+                          loadingText="Detecting the Disease.."
+                        />
+                      </div>
+                    </Tab>
+                    <Tab eventKey="localfile" title="Select Local File">
+                      <Form.Group controlId="file">
+                        <Form.Label>Select Image File</Form.Label>
+                        <br />
+                        <Form.Label className="imagelabel">
+                          {this.state.filename
+                            ? this.state.filename
+                            : "Browse..."}
+                        </Form.Label>
+                        <Form.Control
+                          onChange={this.handleFileChange}
+                          type="file"
+                          accept="image/*"
+                          className="imagefile"
+                        />
+                      </Form.Group>
+                      {this.state.file && (
+                        <Fragment>
+                          <div id="local-image">
+                            <Cropper
+                              ref="cropper"
+                              src={this.state.file}
+                              style={{ height: 400, width: "100%" }}
+                              guides={true}
+                              aspectRatio={1 / 1}
+                              viewMode={2}
+                            />
+                          </div>
+                          <div className="button-container">
+                            <LoadButton
+                              variant="primary"
+                              size="lg"
+                              disabled={!this.state.filename}
+                              onClick={this.classifyLocalImage}
+                              isLoading={this.state.isClassifying}
+                              text="Detect"
+                              loadingText="Detecting the Disease.."
+                            />
+                          </div>
+                        </Fragment>
+                      )}
+                    </Tab>
+                  </Tabs>
+                </div>
+              </Collapse>
+              {this.state.predictions.length > 0 && (
+                <div className="classification-results">
+                  <h3>Predictions</h3>
+                  <canvas
+                    ref="canvas"
+                    width={CANVAS_SIZE}
+                    height={CANVAS_SIZE}
+                  />
+                  <br />
+                  <ListGroup>
+                    {this.state.predictions.map((category) => {
+                      return (
+                        <ListGroup.Item key={category.className}>
+                          <strong>{category.className}</strong>{" "}
+                          {category.probability}%
+                        </ListGroup.Item>
+                      );
+                    })}
+                  </ListGroup>
+                  <Button
+                    onClick={this.handleGetMoreInfo}
+                    className="classify-panel-header"
+                  >
+                    Get Disease Diagnosis
+                  </Button>
+                </div>
+              )}
+            </Fragment>
+          )}
+        </div>
+      </>
     );
   }
 }
