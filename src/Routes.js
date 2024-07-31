@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import Database from "./pages/Database";
 import Home from "./pages/Home";
 import YPredictor from "./components/YieldPrediction/YPredictor";
+import PPredictor from "./components/PricePrediction/PPredictor";
 
 const routing = ({ childProps }) => (
   <Switch>
@@ -21,6 +22,13 @@ const routing = ({ childProps }) => (
       component={YPredictor}
       props={childProps}
     />
+    <Route
+      path="/pricepredictor"
+      exact
+      component={PPredictor}
+      props={childProps}
+    />
+
     <Route component={NotFound} />
   </Switch>
 );
