@@ -16,6 +16,7 @@ const routing = ({ childProps }) => (
     <Route path="/about" exact component={About} props={childProps} />
     <Route path="/contact" exact component={Contact} props={childProps} />
     <Route path="/database" exact component={Database} props={childProps} />
+    <Route path="/pricepredictor" exact component={Detect} props={childProps} />
     <Route
       path="/yieldpredictor"
       exact

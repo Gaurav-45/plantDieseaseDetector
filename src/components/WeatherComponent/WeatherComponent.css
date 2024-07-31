@@ -1,3 +1,6 @@
+.weather-wrapper {
+  margin-bottom: 50px;
+}
 .weather-container {
   background-color: #07af5e;
   color: white;

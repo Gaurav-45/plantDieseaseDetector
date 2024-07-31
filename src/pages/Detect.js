@@ -176,7 +176,7 @@ export default class Classify extends Component {
   handleGetMoreInfo = async () => {
     console.log(this.state.predictions[0].className);
     let res = await axios.post(
-      "http://127.0.0.1:5000/getCropDiseaseInformation",
+      `${process.env.REACT_APP_BACKEND_URL}/getCropDiseaseInformation`,
       {
         disease: this.state.predictions[0].className,
       }

@@ -1,0 +1,51 @@
+/* BottomNavBar.css */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav-link {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  flex-grow: 1;
+  padding: 0;
+  transition: background-color 0.3s ease;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  position: relative;
+  top: 10px;
+  transition: top 0.3s ease, background-color 0.3s ease;
+}
+
+.bottom-nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.bottom-nav-text {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.bottom-nav-link.active .bottom-nav-item {
+  top: 0;
+  background-color: var(--darkPrimary);
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.bottom-nav-link.active .bottom-nav-icon {
+  filter: invert(100%);
+}
