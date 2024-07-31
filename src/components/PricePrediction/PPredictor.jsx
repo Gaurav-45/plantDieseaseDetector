@@ -9,10 +9,13 @@ function PPredictor() {
   const handleChange = async (e) => {
     try {
       const commodity = e.target.value;
-      let res = await axios.post("http://127.0.0.1:5000/getCropPrice", {
-        state: "Maharashtra",
-        commodity: commodity,
-      });
+      let res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/getCropPrice`,
+        {
+          state: "Maharashtra",
+          commodity: commodity,
+        }
+      );
       res = res.data;
       console.log(res);
       setApiData(res);
