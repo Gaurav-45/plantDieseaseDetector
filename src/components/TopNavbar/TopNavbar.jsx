@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./TopNavbar.css";
 import { Link } from "react-router-dom";
+import GoogleTranslateWidget from "../GoogleTranslateWidget/GoogleTranslateWidget";
 
 const TopNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +35,7 @@ const TopNavbar = () => {
         </div>
         <div className="topnav_ele hamburger" onClick={toggleMenu}>
           <div className="hamburger_icon">&#9776;</div>
+          {/* <GoogleTranslateWidget /> */}
         </div>
       </div>
       {isOpen && (

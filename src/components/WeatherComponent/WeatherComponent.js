@@ -32,7 +32,11 @@ const WeatherComponent = () => {
   }, []);
 
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <img src="/load.gif" />
+      </div>
+    );
   }
 
   const { main, weather } = weatherData;
