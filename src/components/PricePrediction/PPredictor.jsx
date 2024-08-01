@@ -3,10 +3,15 @@ import Form from "react-bootstrap/Form";
 import { price_data } from "../../temp-db/price-predictor-output";
 import MarketCard from "./MarketCard";
 import axios from "axios";
+import "./PPredictor.css";
 
 function PPredictor() {
-  const [apiData, setApiData] = useState(price_data);
+  const [apiData, setApiData] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [commodity, setCommodity] = useState("");
   const handleChange = async (e) => {
+    setLoader(true);
+    setCommodity(e.target.value);
     try {
       const commodity = e.target.value;
       let res = await axios.post(
@@ -19,15 +24,18 @@ function PPredictor() {
       res = res.data;
       console.log(res);
       setApiData(res);
+      setLoader(false);
     } catch (ex) {
       console.log(ex);
     }
   };
   return (
-    <div>
+    <div className="price_preditor_container">
       <h5>Commodity</h5>
       <select onChange={handleChange}>
-        <option default value="" hidden></option>
+        <option default value="" hidden>
+          Select Commodity
+        </option>
         <option value="potato">Potato</option>
         <option value="rice">Rice</option>
         <option value="onion">Onion</option>
@@ -42,9 +50,15 @@ function PPredictor() {
           alignItems: "center",
         }}
       >
-        {apiData?.result?.map((item, key) => (
-          <MarketCard key={key} data={item} />
-        ))}
+        {loader && commodity.length > 0 ? (
+          <div>
+            <img src="/load.gif" />
+          </div>
+        ) : (
+          apiData?.result?.map((item, key) => (
+            <MarketCard key={key} data={item} />
+          ))
+        )}
       </div>
     </div>
   );
