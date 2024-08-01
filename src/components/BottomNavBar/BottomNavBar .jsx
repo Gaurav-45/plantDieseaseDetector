@@ -7,6 +7,21 @@ const BottomNavBar = () => {
   return (
     <div className="bottom-nav">
       <NavLink
+        to="/"
+        exact
+        className="bottom-nav-link"
+        activeClassName="active"
+      >
+        <div className="bottom-nav-item">
+          <img
+            src="/home.png"
+            alt="Yield Predictor"
+            className="bottom-nav-icon"
+          />
+          <p className="bottom-nav-text">Home</p>
+        </div>
+      </NavLink>
+      <NavLink
         to="/yieldpredictor"
         className="bottom-nav-link"
         activeClassName="active"
