@@ -7,6 +7,7 @@ import Routes from "./Routes";
 import "./App.css";
 import TopNavbar from "./components/TopNavbar/TopNavbar";
 import BottomNavBar from "./components/BottomNavBar/BottomNavBar ";
+import ChatbotIcon from "./components/ChatbotIcon";
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class App extends Component {
         <div style={{ paddingBottom: 200 }}>
           <Routes />
         </div>
+        {/* <ChatbotIcon /> */}
         {/* </Container> */}
         <BottomNavBar />
       </div>
