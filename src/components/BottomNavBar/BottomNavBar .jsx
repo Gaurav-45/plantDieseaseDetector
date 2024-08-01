@@ -34,7 +34,9 @@ const BottomNavBar = () => {
             alt="Yield Predictor"
             className="bottom-nav-icon"
           />
-          <p className="bottom-nav-text">Yield Predictor</p>
+          <p className="bottom-nav-text">
+            Yield <br /> Predictor
+          </p>
         </div>
       </NavLink>
       <NavLink
@@ -48,7 +50,9 @@ const BottomNavBar = () => {
             alt="Disease Detector"
             className="bottom-nav-icon"
           />
-          <p className="bottom-nav-text">Disease Detector</p>
+          <p className="bottom-nav-text">
+            Disease <br /> Detector
+          </p>
         </div>
       </NavLink>
       <NavLink
@@ -62,7 +66,10 @@ const BottomNavBar = () => {
             alt="Price Predictor"
             className="bottom-nav-icon"
           />
-          <p className="bottom-nav-text">Price Predictor</p>
+          <p className="bottom-nav-text">
+            Price <br />
+            Predictor
+          </p>
         </div>
       </NavLink>
       <NavLink

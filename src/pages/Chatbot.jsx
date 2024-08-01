@@ -73,7 +73,7 @@ const Chatbot = () => {
           zIndex: 1, // Ensure it's above other content
         }}
         request={{
-          url: "http://127.0.0.1:5000/api/chat",
+          url: "http://192.168.1.5:5000/api/chat",
           method: "POST",
         }}
         // textToSpeech="true"

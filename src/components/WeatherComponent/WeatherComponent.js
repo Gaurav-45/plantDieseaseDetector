@@ -31,6 +31,18 @@ const WeatherComponent = () => {
     fetchWeatherData();
   }, []);
 
+  const sendMessageCall = async () => {
+    try {
+      setShowInfo(!showInfo);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/call-sms`
+      );
+      console.log(response);
+    } catch (error) {
+      console.error("Error sending messages ", error);
+    }
+  };
+
   if (!weatherData) {
     return (
       <div>
@@ -66,7 +78,9 @@ const WeatherComponent = () => {
       </div>
       <button
         className="top_nav_button alert_button"
-        onClick={() => setShowInfo(!showInfo)}
+        onClick={() => {
+          sendMessageCall();
+        }}
       >
         Send demo alert
       </button>
