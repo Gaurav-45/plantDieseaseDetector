@@ -33,9 +33,18 @@ const TopNavbar = () => {
           <button className="top_nav_button">Sign In</button>
           <button className="top_nav_button">Sign Up</button>
         </div>
-        <div className="topnav_ele hamburger" onClick={toggleMenu}>
-          <div className="hamburger_icon">&#9776;</div>
-          {/* <GoogleTranslateWidget /> */}
+        <div
+          className="topnav_ele hamburger"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <GoogleTranslateWidget />
+          <div className="hamburger_icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
         </div>
       </div>
       {isOpen && (

@@ -1,0 +1,37 @@
+.select-container {
+  display: inline-block;
+  position: relative;
+}
+
+.select-container::after {
+  content: "▼";
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #888;
+}
+
+.styled-select {
+  appearance: none;
+  background-color: #f9f9f9;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 100px; /* Adjust width as needed */
+}
+
+.styled-select:hover {
+  background-color: #e0e0e0;
+}
+
+.styled-select:focus {
+  box-shadow: 0 0 0 2px #007bff;
+}
